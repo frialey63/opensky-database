@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("opensky/aircraft")
 public class AircraftController {
 
-    private static final String CAT_MEDIUM = "medium";
-    private static final String CAT_LARGE = "large";
-    private static final String CAT_SMALL = "small";
+    private static final String CAT_MEDIUM = "MEDIUM";
+    private static final String CAT_LARGE = "LARGE";
+    private static final String CAT_SMALL = "SMALL";
 
     private final AircraftRepository aircraftRepository;
 
