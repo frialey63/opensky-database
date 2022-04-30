@@ -1,2 +1,2 @@
 # opensky-database
-OopenSky Database
+OpenSky Database
