@@ -64,7 +64,7 @@ public class OpenSkyApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        if (config.isLoadDatabase()) {
+        if (config.getLoadDatabase()) {
             Reader in = new FileReader(config.getCsvFilePath());
 
             @SuppressWarnings("deprecation")
@@ -101,16 +101,14 @@ public class OpenSkyApplication implements ApplicationRunner {
                 String notes = record.get("notes");
                 String categoryDescription = record.get("categoryDescription");
 
-                if (!Strings.isNullOrEmpty(categoryDescription) && !NO_CATEGORY.equals(categoryDescription)) {
+                if (checkCategory(categoryDescription)) {
                     Aircraft aircraft = new Aircraft(icao24, registration, manufacturerIcao, manufacturerName, model, typeCode, serialNumber, lineNumber, icaoAircraftType, operator, operatorCallsign, operatorIcao, operatorIata, owner, testReg, registered, regUntil, status, built, firstFlightDate, seatConfiguration, engines, modes, adsb, acars, notes, categoryDescription);
 
                     repository.save(aircraft);
 
-                    count++;
-                }
-
-                if (count == 1000) {
-                    break;
+                    if (++count % 1000 == 0) {
+                        LOGGER.info("loaded = {}", count);
+                    }
                 }
             }
 
@@ -122,6 +120,14 @@ public class OpenSkyApplication implements ApplicationRunner {
                 LOGGER.debug(ac.toString());
             }
         }
+    }
+
+    private boolean checkCategory(String categoryDescription) {
+        if (config.getExcludeEmptyCategory()) {
+            return !Strings.isNullOrEmpty(categoryDescription) && !NO_CATEGORY.equals(categoryDescription);
+        }
+
+        return true;
     }
 
 }

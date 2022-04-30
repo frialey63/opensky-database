@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("aircraft")
+@RequestMapping("opensky/aircraft")
 public class AircraftController {
 
     private static final String CAT_MEDIUM = "medium";

@@ -16,12 +16,19 @@ public final class Config {
     @Value("${csvFilePath}")
     private String csvFilePath;
 
-    public Boolean isLoadDatabase() {
+    @Value("${excludeEmptyCategory}")
+    private Boolean excludeEmptyCategory;
+
+    public Boolean getLoadDatabase() {
         return loadDatabase;
     }
 
     public String getCsvFilePath() {
         return csvFilePath;
+    }
+
+    public Boolean getExcludeEmptyCategory() {
+        return excludeEmptyCategory;
     }
 
     private Config() {
