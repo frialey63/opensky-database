@@ -45,7 +45,7 @@ public class AircraftController {
             String category = optAircraft.get().getCategoryDescription().toLowerCase();
             String tempResult;
 
-            if (category.contains("small") || category.contains("light")) {
+            if (category.contains("small") || category.contains("light") || category.contains("glider")) {
                 tempResult = CAT_SMALL;
             } else if (category.contains("large") || category.contains("heavy")) {
                 tempResult = CAT_LARGE;
