@@ -1,6 +1,8 @@
 # opensky-database
 OpenSky Database
 
+## Overview
+
 This SpringBoot application loads a PostgreSQL database with the aircraft database which can be downloaded from [OpenSky Network](https://opensky-network.org/aircraft-database).
 
 The application exposes a simple REST interface for querying the database by ICAO code:
