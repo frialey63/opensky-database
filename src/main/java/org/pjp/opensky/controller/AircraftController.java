@@ -3,7 +3,7 @@ package org.pjp.opensky.controller;
 import java.util.Optional;
 
 import org.pjp.opensky.model.Aircraft;
-import org.pjp.opensky.repository.AircraftRepository;
+import org.pjp.opensky.service.AircraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,48 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("opensky/aircraft")
 public class AircraftController {
 
-    private static final String CAT_MEDIUM = "MEDIUM";
-    private static final String CAT_LARGE = "LARGE";
-    private static final String CAT_SMALL = "SMALL";
-
-    private final AircraftRepository aircraftRepository;
-
     @Autowired
-    public AircraftController(AircraftRepository aircraftRepository) {
+    private AircraftService aircraftService;
+
+    public AircraftController() {
         super();
-        this.aircraftRepository = aircraftRepository;
     }
 
     @RequestMapping(value = "/{icao24}", method = RequestMethod.GET)
     Optional<Aircraft> getAircraftByIcao24(@PathVariable("icao24") String icao24) {
-        return aircraftRepository.findById(icao24);
+        return aircraftService.getAircraftByIcao24(icao24);
     }
 
     @RequestMapping(value = "/{icao24}/category", method = RequestMethod.GET)
     Optional<String> getCategoryByIcao24(@PathVariable("icao24") String icao24) {
-        Optional<String> result;
-
-        Optional<Aircraft> optAircraft = aircraftRepository.findById(icao24);
-
-        if (optAircraft.isPresent()) {
-            String category = optAircraft.get().getCategoryDescription().toLowerCase();
-            String tempResult;
-
-            if (category.contains("small") || category.contains("light") || category.contains("glider")) {
-                tempResult = CAT_SMALL;
-            } else if (category.contains("large") || category.contains("heavy")) {
-                tempResult = CAT_LARGE;
-            } else {
-                tempResult = CAT_MEDIUM;
-            }
-
-            result = Optional.of(tempResult);
-
-        } else {
-            result = Optional.empty();
-        }
-
-        return result;
+        return aircraftService.getCategoryByIcao24(icao24);
     }
+
 
 }
