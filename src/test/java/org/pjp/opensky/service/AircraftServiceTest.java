@@ -7,34 +7,20 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.pjp.opensky.model.Aircraft;
 import org.pjp.opensky.repository.AircraftRepository;
-import org.pjp.opensky.service.AircraftServiceTest.AircraftServiceImplTestContextConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@Import(AircraftServiceImplTestContextConfiguration.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AircraftServiceTest {
 
-    @TestConfiguration
-    static class AircraftServiceImplTestContextConfiguration {
+    @InjectMocks
+    private AircraftServiceImpl aircraftService;
 
-        @Bean
-        public AircraftService aircraftService() {
-            return new AircraftServiceImpl();
-        }
-    }
-
-    @Autowired
-    private AircraftService aircraftService;
-
-    @MockBean
+    @Mock
     private AircraftRepository aircraftRepository;
 
     @Test

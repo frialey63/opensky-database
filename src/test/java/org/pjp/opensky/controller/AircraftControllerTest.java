@@ -21,6 +21,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * 1. Ignore the @RestController and test using Mockito in the same way that the service layer has been tested
+ * 2. Build the test case using MockHttpServletRequest, see https://howtodoinjava.com/spring-boot2/testing/rest-controller-unit-test-example/
+ * 3. Use the MockMvc as in the sample code below, from https://www.baeldung.com/spring-boot-testing
+ *
+ * @author Paul
+ *
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(AircraftController.class)
 public class AircraftControllerTest {
