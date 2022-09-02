@@ -7,20 +7,34 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.pjp.opensky.model.Aircraft;
 import org.pjp.opensky.repository.AircraftRepository;
+import org.pjp.opensky.service.AircraftService2Test.AircraftServiceImplTestContextConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(MockitoExtension.class)
-public class AircraftServiceTest {
+@ExtendWith(SpringExtension.class)
+@Import(AircraftServiceImplTestContextConfiguration.class)
+public class AircraftService2Test {
 
-    @InjectMocks
-    private AircraftServiceImpl aircraftService;
+    @TestConfiguration
+    static class AircraftServiceImplTestContextConfiguration {
 
-    @Mock
+        @Bean
+        public AircraftService aircraftService() {
+            return new AircraftServiceImpl();
+        }
+    }
+
+    @Autowired
+    private AircraftService aircraftService;
+
+    @MockBean
     private AircraftRepository aircraftRepository;
 
     @Test
